@@ -1,5 +1,11 @@
 ### Linux ###
 *~
+#Drone video directory"
+"./Drone Footage"
+
+#Pretrained yolox weights
+#./pretrained
+
 
 # user experiments directory
 YOLOX_outputs/
