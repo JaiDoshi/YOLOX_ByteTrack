@@ -3,9 +3,9 @@
 # Copyright (c) Megvii, Inc. and its affiliates.
 
 COCO_CLASSES = (
-    "person",
-    "two-wheeler",
-    "car",
-    "truck",
-    "bus"
+    "P",
+    "TW",
+    "C",
+    "T",
+    "B"
 )

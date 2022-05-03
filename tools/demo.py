@@ -144,7 +144,7 @@ class Predictor(object):
 
         ratio = min(self.test_size[0] / img.shape[0], self.test_size[1] / img.shape[1])
         img_info["ratio"] = ratio
-
+        #print(img.shape, self.test_size)
         img, _ = self.preproc(img, None, self.test_size)
         img = torch.from_numpy(img).unsqueeze(0)
         img = img.float()
@@ -156,12 +156,14 @@ class Predictor(object):
         with torch.no_grad():
             t0 = time.time()
             outputs = self.model(img)
+            #print(outputs[0])
             if self.decoder is not None:
                 outputs = self.decoder(outputs, dtype=outputs.type())
             outputs = postprocess(
                 outputs, self.num_classes, self.confthre,
                 self.nmsthre, class_agnostic=True
             )
+            #print(outputs[0])
             logger.info("Infer time: {:.4f}s".format(time.time() - t0))
         return outputs, img_info
 
@@ -228,6 +230,7 @@ def imageflow_demo(predictor, vis_folder, current_time, args):
         ret_val, frame = cap.read()
         if ret_val:
             outputs, img_info = predictor.inference(frame)
+            #print(len(outputs), outputs[0].shape)
             result_frame = predictor.visual(outputs[0], img_info, predictor.confthre)
             if args.save_result:
                 vid_writer.write(result_frame)
